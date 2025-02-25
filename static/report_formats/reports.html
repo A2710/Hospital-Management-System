@@ -1,0 +1,164 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Hospital Management System</title>
+        <style type="text/css">
+            @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+            html, body, p, ul, li, span, img {
+              margin: 10px;
+              padding: 0px;
+            }
+
+            body {
+              font-family: "Source Sans Regular", sans-serif;
+              text-rendering: geometricPrecision;
+            }
+            .page {
+              width: 729px;
+            }
+            .headblock{
+              text-align: center;
+              color:red
+            }
+            .h4block{
+              background-color: #e2e2e2;
+              padding: 10px;
+            }
+            th,td{
+              border-bottom: 1px solid #e2e2e2;
+              width: 400px;
+              height: 40px;
+              text-align: left;
+            }
+        </style>
+    </head>
+    <body>
+      <div class = "container-fluid px-4">
+        <img ></img>
+        <h2 class="headblock">Prescription</h2>
+      </div>
+        
+        <div class="container-fluid px-4">
+            <div class="card mt-1 mb-4">
+              <div class="card-header">
+                <h4 class="h4block">Appointment Details</h4>
+              </div>
+                <div class="card-body ">
+                    <div class = "col-md-12">
+                        <div class = "row">
+                            <div class = "col-md-9">
+                    <table id = "preview-table">
+                      <tr>
+                        <th>PatientName</th>
+                        <td>{{FirstName}} {{MiddleName}} {{LastName}}</td>
+                      </tr>
+                      <tr>
+                        <th>Department</th>
+                        <td>{{DepartmentName}}</td>
+                      </tr>
+                      <tr>
+                        <th>Appointment Date/Time</th>
+                        <td>{{AppointmentDate}} / {{Time}}</td>
+                      </tr>
+                      <tr>
+                        <th>Doctor</th>
+                        <td>Dr. {{DFirstName}} {{DMiddleName}} {{DLastName}}</td>
+                      </tr>
+                      <tr>
+                        <th>Doctor Mobile.No</th>
+                        <td>{{DMobile}}</td>
+                      </tr>
+                    </table>
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>
+        
+        
+            <div class="card mt-1 mb-4">
+        
+              <div class="card-header">
+                <h4 class="h4block">Problem</h4>
+              </div>
+        
+              <div class="card-body ">
+        
+                <div class = "col-md-12">
+        
+                  <div class = "row">
+        
+                    <div class = "col-md-12">
+                        
+                        <p class="card-text">{{Problem}}</p>
+        
+                    </div>
+        
+                  </div>
+        
+                </div>
+        
+              </div>
+        
+            </div>
+        
+            <div class="card mt-1 mb-4">
+        
+                <div class="card-header">
+                  <h4 class = "h4block">Prescription</h4>
+                </div>
+          
+                <div class="card-body ">
+          
+                  <div class = "col-md-12">
+          
+                    <div class = "row">
+          
+                      <div class = "col-md-12">
+                          
+                          <p class="card-text">{{Prescription}}</p>
+          
+                      </div>
+          
+                    </div>
+          
+                  </div>
+          
+                </div>
+          
+              </div>
+        
+              <div class="card mt-1 mb-4">
+        
+                <div class="card-header">
+                  <h4 class = "h4block">Reports</h4>
+                </div>
+          
+                <div class="card-body ">
+          
+                  <div class = "col-md-12">
+          
+                    <div class = "row">
+          
+                      <div class = "col-md-12">
+                          
+                          <p class="card-text">{{Report}}</p>
+          
+                      </div>
+          
+                    </div>
+          
+                  </div>
+          
+                </div>
+          
+              </div>
+        
+        </div>
+    </body>
+</html>

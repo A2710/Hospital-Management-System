@@ -1,0 +1,27 @@
+{% extends 'base_main.html' %}
+
+
+{% block main %}
+
+<div class="container-fluid px-4">
+  <h1 class="mt-4 mb-4">Modify Time</h1>
+  <div class="card mt-1 mb-4">
+      <div class="card-body ">
+        {% for i in obj %}
+        <form method = "post" action = "/edittime/{{i.TimeID}}">
+          {% csrf_token %}
+          <div class= "form-group">
+            <label for="time">Choose Time: </label>
+            <input class = "form-control" id="time" type="time" name="time" value="{{time}}">
+            {% comment %} <input class="form-control" type="datetime-local" id="date" name="date" value="{{date}}" min="2018-06-07T00:00" max="2025-06-14T00:00"> {% endcomment %}
+          </div>
+          <input type = "submit" name = "edittime" value = "SUBMIT" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;
+          <a role="button" href="/Time" class="btn btn-danger">Cancel</a>
+        </form>
+        {% endfor %}
+      </div>
+  </div>
+</div>
+
+{% endblock main %}
+ 

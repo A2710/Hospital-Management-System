@@ -1,0 +1,44 @@
+{% extends 'base_main.html' %}
+
+{% block main %}
+{% for h in hospital %}
+<div class="container-fluid px-4">
+  <h1 class="mt-4 mb-4">Hospital Details</h1>
+  {% if showalert == 1 %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Record updated successfully!!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" fdprocessedid="jzpdmd"></button>
+  </div>
+  {% endif %}
+  <div class="card mt-1 mb-4">
+      <div class="card-body ">
+        <form method = "post" action = "/Hospital/{{h.HospitalID}}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for = "hospitalname">Name</label>
+            <input type = "text" class="form-control" id = "hospitalname" name = "hospitalname" placeholder="Hospital Name" value="{{h.HospitalName}}" required>
+          </div>
+          <div class="form-group">
+            <label for = "hospitaladdress">Address</label>
+            <input type = "text" class="form-control" id = "hospitaladdress" name = "hospitaladdress" placeholder="Hospital Address" value="{{h.HospitalAddress}}" required>
+          </div>
+          <div class="form-group">
+            <label for = "hospitalmobile">Mobile</label>
+            <input type = "text" class="form-control" id = "hospitalmobile" name = "hospitalmobile" placeholder="Hospital Mobile" value="{{h.HospitalMobile}}" required>
+          </div>
+          <div class="form-group">
+            <label for = "hospitalLandline">Landline</label>
+            <input type = "text" class="form-control" id = "hospitallandline" name = "hospitallandline" placeholder="Hospital LandLine" value="{{h.HospitalLandline}}" required>
+          </div>
+            <div class="col-12">
+              <input type = "submit" name = "addhospital" value = "SUBMIT" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;
+              <a role="button" href="/sample" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>          
+      </div>
+  </div>
+</div>
+{%endfor%}
+
+
+{% endblock main %}

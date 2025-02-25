@@ -1,0 +1,48 @@
+{% extends 'base_main.html'%}
+
+{% block main %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">Doctor</h1>
+    <div class="container mt-5  col-md-1" style="margin-left:1100px">
+        <a role="button" href="/AddDoctor" class="btn btn-success">Add</a>
+      </div>
+    <div class="card mt-1 mb-4">
+        <div class="card-body ">
+            <table id="tbllist" class="table">
+                <thead>
+              <tr>
+                {% comment %} <th>DepartmentID</th> {% endcomment %}
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Mobile</th>
+                <th>Address</th>
+                <th>Department</th>
+                <th>Specialization</th>
+                <th></th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in read %}
+              <tr>
+                {% comment %} <td width="20%">{{i.DepartmentID}}</td> {% endcomment %}
+                <td width="10%">{{i.FirstName}}&nbsp;{{i.MiddleName}}&nbsp;{{i.LastName}}</td>
+                <td width="12%">{{i.GenderName}}</td>
+                <td>{{i.Mobile}}</td>
+                <td>{{i.DoctorAddress}}</td>
+                <td>{{i.DepartmentName}}</td>
+                <td>{{i.SpecializationName}}</td>
+                
+                <td><a role="button" href="editdoctor/{{i.DoctorID}}" class="btn btn-secondary">Edit</a>
+                  <form action = "deletedoctor/{{i.DoctorID}}" method = "post" class="d-inline">
+                    {% csrf_token %}
+                    <input type = "submit" class = "btn btn-danger" value = "delete">
+                  </form></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main %}

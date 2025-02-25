@@ -1,0 +1,147 @@
+{% extends 'base_main.html'%}
+
+{% block main %}
+{% for i in read %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">Patient Preview</h1>
+    <div class="card mt-1 mb-4">
+      <div class="card-header">
+        <h4>Patient Details</h4>
+      </div>
+        <div class="card-body ">
+            <div class = "col-md-12">
+                <div class = "row">
+                    <div class = "col-md-9">
+            <table id = "preview-table" class="table">
+               
+              <tr>
+                <th>FirstName</th>
+                <td>{{i.FirstName}}</td>
+              </tr>
+              <tr>
+                <th>MiddleName</th>
+                <td>{{i.MiddleName}}</td>
+              </tr>
+              <tr>
+                <th>LastName</th>
+                <td>{{i.LastName}}</td>
+              </tr>
+              <tr>
+                <th>Gender</th>
+                <td>{{i.GenderName}}</td>
+              </tr>
+              <tr>
+                <th>DOB</th>
+                <td>{{i.DOB}}</td>
+              </tr>
+              <tr>
+                <th>Mobile</th>
+                <td>{{i.Mobile}}</td>
+              </tr>
+              <tr>
+                <th>Address</th>
+                <td>{{i.PatientAddress}}</td>
+              </tr>
+              
+                <td>
+                  <a role="button" href="../Patients" class="btn btn-secondary">Back</a>
+                </td>
+                  
+            
+            </table>
+        </div>
+        <div class = "col-md-3">
+            {%if i.PatientImage %}
+            <img class = "ms-3 mt-3 pe-0 me-0 justify-content-right" src = "/media/patient/{{i.PatientImage}}" width = "250px" height = "280px" style = " object-fit: cover; object-position: center center; "></img>
+            {%else%}
+            <img class = "ms-3 mt-3 pe-0 me-0 justify-content-right" src = "/media/no-photo.jpg" width = "250px" height = "280px" style = " object-fit: cover; object-position: center center; "></img>
+            {%endif%}
+        </div>
+        </div>
+        </div>
+        </div>
+    </div>
+
+
+    <div class="card mt-1 mb-4">
+
+      <div class="card-header">
+        <h4>Appointments</h4>
+      </div>
+
+      <div class="card-body ">
+
+        <div class = "col-md-12">
+
+          <div class = "row">
+
+            <div class = "col-md-12">
+                
+              <table id="tbllist" class="table">
+                <thead>
+              <tr>
+                {% comment %} <th>DepartmentID</th> {% endcomment %}
+                <th width="7%">Date/Time</th>
+                <th width="12%">Patient</th>
+                <th width="10%">Department</th>
+                <th width="12%">Doctor</th>
+                <th width="12%">Status</th>
+                <th width="20%"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in appointment %}
+              <tr>
+                {% comment %} <td width="20%">{{i.DepartmentID}}</td> {% endcomment %}
+                <td><a target = "_blank" href = "../appointmentpreview/{{i.AppointmentID}}">{{i.AppointmentDate}}<br>{{i.Time}}</a></td>
+                <td>{{i.pf}} {{i.pl}}<br>{{i.pmo}}</td>
+                <td>{{i.DepartmentName}}</td>
+                <td>{{i.df}} {{i.dl}}<br>{{i.m}}</td>
+                {% if i.Status == "Active" %}
+                <td><small class = "badge bg-success">{{i.Status}}</small></td>
+                {% elif i.Status == "Cancelled"%}
+                <td><small class = "badge bg-danger">{{i.Status}}</small></td>
+                {% elif i.Status == "Completed" %}
+                <td><small class = "badge bg-primary">{{i.Status}}</small></td>
+                {% endif %}
+
+                
+                <td>
+                  {% if i.Status != "Completed" %}
+                  <a role="button" href="../editappointment/{{i.AppointmentID}}" class="btn btn-secondary">Edit</a>
+                  {% endif %}
+                  <form action = "../deleteappointment/{{i.AppointmentID}}" method = "post" class="d-inline">
+                    {% csrf_token %}
+                    <input type = "submit" class = "btn btn-danger" value = "Delete">
+                  </form>
+                  {% if i.Status != "Completed" %}
+                  <form action = "../cancelappointment/{{i.AppointmentID}}" method = "post" class="d-inline">
+                    {% csrf_token %}
+                    <input type = "submit" class = "btn btn-danger" value = "Cancel">
+                  </form>
+                  {% endif %}{% comment %}  and i.AppointmentDate < time {% endcomment %}
+                  {% if superuser == 1 %}
+                  {% if i.Status == "Active" or i.Status == "Completed" and i.DateStatus == "IN_PROCESS"%}
+                  <a role="button" href="../../processappointment/{{i.AppointmentID}}" class="btn btn-success">Process..</a>
+                  {% endif %}
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+</div>
+{% endfor %}
+{% endblock main %}

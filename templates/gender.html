@@ -1,0 +1,36 @@
+{% extends 'base_main.html'%}
+
+{% block main %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">Gender</h1>
+    <div class="container mt-5  col-md-1" style="margin-left:1100px">
+        <a role="button" href="/addgender" class="btn btn-success">Add</a>
+      </div>
+    <div class="card mt-1 mb-4">
+        <div class="card-body ">
+            <table id="tbllist" class="table">
+                <thead>
+              <tr>
+                {% comment %} <th>DepartmentID</th> {% endcomment %}
+                <th>Gender</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in obj %}
+              <tr>
+                {% comment %} <td width="20%">{{i.DepartmentID}}</td> {% endcomment %}
+                <td width="80%">{{i.GenderName}}</td>
+                <td width="20%"><a role="button" href="editgender/{{i.GenderID}}" class="btn btn-secondary">Edit</a>
+                  <form action = "deletegender/{{i.GenderID}}" method = "post" class="d-inline">
+                    {% csrf_token %}
+                    <input type = "submit" class = "btn btn-danger" value = "delete">
+                  </form></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main %}

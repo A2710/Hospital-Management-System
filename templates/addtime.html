@@ -1,0 +1,33 @@
+{% extends 'base_main.html' %}
+
+{% block main %}
+
+<div class="container-fluid px-4">
+  <h1 class="mt-4 mb-4">Add Time</h1>
+
+  {% if error_counter == 1 %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" fdprocessedid="jzpdmd"></button>
+  </div>
+  {% endif %}
+
+  <div class="card mt-1 mb-4">
+      <div class="card-body ">
+        <form method = "post" action = "/addtime">
+          {% csrf_token %}
+          <div class= "form-group">
+            <label for="time">Choose Time:</label>
+            <input class = "form-control" id="time" type="time" name="time" value = "{{pval.time}}">
+            {% comment %} <input class="form-control" type="datetime-local" id="date" name="date" value="{{date}}" min="2018-06-07T00:00" max="2025-06-14T00:00"> {% endcomment %}
+          </div>
+            <div class="col-12">
+              <input type = "submit" name = "addtime" value = "SUBMIT" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;
+          <a role="button" href="/Time" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>          
+      </div>
+  </div>
+</div>
+
+{% endblock main %}

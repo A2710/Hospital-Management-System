@@ -1,0 +1,96 @@
+{% extends 'base_main.html'%}
+{}
+
+{% block main %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">Appointments</h1>
+
+<div class = "col-md-12 p-2 mb-3" style = "background-color: #e2e2e2">
+    <div class = "row">
+      <div class = "col-md-6">
+        <form action = "Appointment" method = "post" class="d-inline">
+          {% csrf_token %}
+          <input class="btn {{clsinprocess}}" type="submit" name = "filter" value="In Process">
+        </form>
+        <form action = "Appointment" method = "post" class="d-inline">
+          {% csrf_token %}
+          <input class="btn {{clsfuture}}" type="submit" name = "filter" value="Future">
+        </form>
+        <form action = "Appointment" method = "post" class="d-inline">
+          {% csrf_token %}
+          <input class="btn {{clscompleted}}" type="submit" name = "filter" value="Completed">
+        </form>
+        <form action = "Appointment" method = "post" class="d-inline">
+          {% csrf_token %}
+          <input class="btn {{clscancelled}}" type="submit" name = "filter" value="Cancelled">
+        </form>
+        <form action = "Appointment" method = "post" class="d-inline">
+          {% csrf_token %}
+          <input class="btn {{clsall}}" type="submit" name = "filter" value="All">
+        </form>
+      </div>
+
+      <div class="col-md-6">
+           <a role="button" href="/AddAppointment" class="btn btn-success" style="float:right">Add</a>
+      </div>
+    </div>
+  </div>  
+    <div class="card mt-1 mb-4">
+        <div class="card-body ">
+            <table id="tbllist" class="table">
+                <thead>
+              <tr>
+                {% comment %} <th>DepartmentID</th> {% endcomment %}
+                <th width="7%">Date/Time</th>
+                <th width="12%">Patient</th>
+                <th width="10%">Department</th>
+                <th width="12%">Doctor</th>
+                <th width="12%">Status</th>
+                <th width="20%"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in read %}
+              <tr>
+                {% comment %} <td width="20%">{{i.DepartmentID}}</td> {% endcomment %}
+                <td><a target = "_blank" href = "appointmentpreview/{{i.AppointmentID}}">{{i.AppointmentDate}}<br>{{i.Time}}</a></td>
+                <td>{{i.pf}} {{i.pl}}<br>{{i.pmo}}</td>
+                <td>{{i.DepartmentName}}</td>
+                <td>{{i.df}} {{i.dl}}<br>{{i.m}}</td>
+                {% if i.Status == "Active" %}
+                <td><small class = "badge bg-success">{{i.Status}}</small></td>
+                {% elif i.Status == "Cancelled"%}
+                <td><small class = "badge bg-danger">{{i.Status}}</small></td>
+                {% elif i.Status == "Completed" %}
+                <td><small class = "badge bg-primary">{{i.Status}}</small></td>
+                {% endif %}
+
+                
+                <td>
+                  {% if i.Status != "Completed" %}
+                  <a role="button" href="editappointment/{{i.AppointmentID}}" class="btn btn-secondary">Edit</a>
+                  {% endif %}
+                  <form action = "deleteappointment/{{i.AppointmentID}}" method = "post" class="d-inline">
+                    {% csrf_token %}
+                    <input type = "submit" class = "btn btn-danger" value = "Delete">
+                  </form>
+                  {% if i.Status != "Completed" %}
+                  <form action = "cancelappointment/{{i.AppointmentID}}" method = "post" class="d-inline">
+                    {% csrf_token %}
+                    <input type = "submit" class = "btn btn-danger" value = "Cancel">
+                  </form>
+                  {% endif %}{% comment %}  and i.AppointmentDate < time {% endcomment %}
+                  {% if superuser == 1 %}
+                  {% if i.Status == "Active" or i.Status == "Completed" and i.DateStatus == "IN_PROCESS"%}
+                  <a role="button" href="processappointment/{{i.AppointmentID}}" class="btn btn-success">Process..</a>
+                  {% endif %}
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main %}

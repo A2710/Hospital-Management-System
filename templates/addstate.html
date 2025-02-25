@@ -1,0 +1,32 @@
+{% extends 'base_main.html' %}
+
+{% block main %}
+
+<div class="container-fluid px-4">
+  <h1 class="mt-4 mb-4">Add State</h1>
+
+  {% if error_counter == 1 %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" fdprocessedid="jzpdmd"></button>
+  </div>
+  {% endif %}
+
+  <div class="card mt-1 mb-4">
+      <div class="card-body ">
+        <form method = "post" action = "/addstate">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for = "name">State</label>
+            <input type = "text" class="form-control" id = "name" name = "name" value = "{{pval.name}}" placeholder="Enter New State" required>
+          </div>
+            <div class="col-12">
+              <input type = "submit" name = "addstate" value = "SUBMIT" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;
+          <a role="button" href="/States" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>          
+      </div>
+  </div>
+</div>
+
+{% endblock main %}

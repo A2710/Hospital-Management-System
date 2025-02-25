@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+  {% csrf_token %}
+
+<div class="container ms-10 mb-1 p-2 col-md-1" style="margin-left:1350px">
+
+  <a role="button" href="/addpatient" class="btn btn-success">Add Patient</a>
+
+</div>
+
+
+<table id="tbllist" class="table">
+    <thead>
+  <tr>
+    <th>PatientID</th>
+    <th>Name</th>
+    <th>Disease</th>
+    <th>Address</th>
+    <th></th>
+  </tr>
+</thead>
+<tbody>
+  {% for i in data %}
+  <tr>
+    <td width="10%">{{i.PatientID}}</td>
+    <td width="20%">{{i.PatientName}}</td>
+    <td width="20%">{{i.DiseaseName}}</td>
+    <td width="40%">{{i.PatientAddress}}</td>
+    <td><a role="button" href="editpatient/{{i.PatientID}}" class="btn btn-secondary">Edit</a>
+      <form action = "deletepatient/{{i.PatientID}}" method = "post" class="d-inline">
+        {% csrf_token %}
+        <input type = "submit" class = "btn btn-danger" value = "delete">
+      </form></td>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
+
+{% endblock body %}
+
+    {% block script%}
+    <script>
+      $(document).ready( function () {
+          $('#tbllist').DataTable({
+            bAutoWidth: false,
+            bSort: true,
+            "iDisplayLength": 100,
+            "aaSorting": [],
+            "bLengthChange": false
+        }
+            
+          );
+      });
+    </script>
+    {%endblock script%}

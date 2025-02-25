@@ -1,0 +1,26 @@
+{% extends 'base_main.html' %}
+
+
+
+{% block main %}
+
+<div class="container-fluid px-4">
+  <h1 class="mt-4 mb-4">Modify Department</h1>
+  <div class="card mt-1 mb-4">
+      <div class="card-body ">
+        {% for d in dep %}
+        <form method = "post" action = "/editdepartment/{{d.DepartmentID}}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for = "name">Name</label>
+            <input type = "text" class="form-control" id = "name" name = "dname" value = "{{d.DepartmentName}}">
+          </div>
+          <input type = "submit" name = "editdepartment" value = "SUBMIT" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;
+          <a role="button" href="/Department" class="btn btn-danger">Cancel</a>
+        </form>
+        {% endfor %}
+      </div>
+  </div>
+</div>
+
+{% endblock main %}

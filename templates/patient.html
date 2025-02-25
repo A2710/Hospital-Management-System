@@ -1,0 +1,65 @@
+{% extends 'base_main.html'%}
+
+{% block main %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">Patient</h1>
+    {% if delete_error == 1 %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>The patients appointments exists so cannot be deleted!!</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" fdprocessedid="jzpdmd"></button>
+      </div>
+    {% endif %}
+    <div class="container mt-5  col-md-1" style="margin-left:1100px">
+        <a role="button" href="/AddPatient" class="btn btn-success">Add</a>
+      </div>
+    <div class="card mt-1 mb-4">
+        <div class="card-body ">
+            <table id="tbllist" class="table">
+                <thead>
+              <tr>
+                {% comment %} <th>DepartmentID</th> {% endcomment %}
+                <th>PatientName</th>
+                <th>Gender</th>
+                <th>DOB</th>
+                <th>Mobile</th>
+                <th>Address</th>
+                <th>Approval</th>
+                <th width="15%"></th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in read %}
+              <tr>
+                {% comment %} <td width="20%">{{i.DepartmentID}}</td> {% endcomment %}
+                <td width="25%"><a target = "_blank" href = "patientpreview/{{i.PatientID}}">{{i.FirstName}} {{i.LastName}}</a></td>
+                <td width="12%">{{i.GenderName}}</td>
+                <td>{{i.DOB}}</td>
+                <td>{{i.Mobile}}</td>
+                <td>{{i.PatientAddress}}</td>
+                {% if i.Consent == 1 %}
+                <td class = "text-center">
+                  <div style="color: transparent;  text-shadow: 0 0 0 rgb(0, 0, 0); " > &#10004; </div>
+                  <div>{{i.ApprovalDate}}</div>
+                  {% comment %} <span style="color: transparent;  text-shadow: 0 0 0 green; ">&#9899;</span>
+                  <span style="color: transparent;  text-shadow: 0 0 0 rgb(42, 170, 82); ">&#9899;</span> {% endcomment %}
+                </td>
+                {% else %}
+                <td>
+                </td>
+                {% endif %}
+
+                
+                <td><a role="button" href="editnewpatient/{{i.PatientID}}" class="btn btn-secondary">Edit</a>
+                  <form action = "deletenewpatient/{{i.PatientID}}" method = "post" class="d-inline">
+                    {% csrf_token %}
+                    <input type = "submit" class = "btn btn-danger" value = "delete">
+                  </form></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main %}

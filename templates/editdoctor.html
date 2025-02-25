@@ -1,0 +1,124 @@
+{% extends 'base_main.html' %}
+
+
+{% block main %}
+
+<div class="container-fluid px-4">
+  <h1 class="mt-4 mb-4">Modify Doctor</h1>
+
+  {% if error_counter == 1 %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" fdprocessedid="jzpdmd"></button>
+  </div>
+  {% endif %}
+
+  <div class="card mt-1 mb-4">
+      <div class="card-body ">
+        {% comment %} {% for i in read %} {% endcomment %}
+        <form method = "post" action = "/editdoctor/{{id}}">
+          {% csrf_token %}
+          <div class = "col-md-12">
+          <div class = "row">
+
+            <div class = "col-md-6">
+              <div class="form-group">
+                <label for = "fname">First Name</label>
+                <input type = "text" class="form-control" id = "fname" name = "firstname" value = "{{dval.firstname}}{{i.FirstName}}">
+              </div>
+    
+              <div class="form-group">
+                <label for = "mname">Middle Name</label>
+                <input type = "text" class="form-control" id = "mname" name = "middlename" value = "{{dval.middlename}}{{i.MiddleName}}">
+              </div>
+    
+              <div class="form-group">
+                <label for = "lname">Last Name</label>
+                <input type = "text" class="form-control" id = "lname" name = "lastname" value = "{{dval.lastname}}{{i.LastName}}">
+              </div>
+              
+              <div class="form-group">
+                <label for="gender" class = "form-label">Gender:</label>
+                <select id="gender" name="gender" class = "form-select">
+                  <option value="default"><b>Choose Gender</b></option>
+                {% for j in gen %}
+                  {% if j.GenderName == dval.gender %}
+                    <option value="{{j.GenderName}}" name = "gender" selected>{{j.GenderName}}</option>
+                  {% endif %}
+                  {% if j.GenderID == i.Gender_id %}
+                    <option value="{{j.GenderName}}" name = "gender" selected>{{j.GenderName}}</option>
+                  {% else %}
+                    <option value="{{j.GenderName}}" name = "gender">{{j.GenderName}}</option>
+                  {% endif %}
+                {% endfor %}
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="specialization" class = "form-label">Specialization:</label>
+                <select id="specialization" name="specialization" class = "form-select">
+                  <option value="default"><b>Choose Specialization</b></option>
+                {% for j in spe %}
+                {% if j.SpecializationName == dval.specialization %}
+                  <option value="{{j.SpecializationName}}" selected>{{j.SpecializationName}}</option>
+                {% endif %}
+                  {% if j.SpecializationID == i.Specialization_id %}
+                    <option value="{{j.SpecializationName}}" selected>{{j.SpecializationName}}</option>
+                  {% else %}
+                    <option value="{{j.SpecializationName}}">{{j.SpecializationName}}</option>
+                  {% endif %}
+                {% endfor %}
+                </select>
+              </div>
+            <div>
+
+            <div class = "col-md-6">
+    
+              <div class="form-group">
+                <label for="department" class = "form-label">Department:</label>
+                <select id="department" name="department" class = "form-select">
+                  <option value=""><b>Choose Department</b></option>
+                {% for j in dep %}
+                  {% if j.DepartmentName == dval.department %}
+                    <option value="{{j.DepartmentName}}" selected>{{j.DepartmentName}}</option>
+                  {% endif %}
+                  {% if j.DepartmentID == i.Department_id %}
+                    <option value="{{j.DepartmentName}}" name = "department" selected>{{j.DepartmentName}}</option>
+                  {% else %}
+                    <option value="{{j.DepartmentName}}" name = "department">{{j.DepartmentName}}</option>
+                  {% endif %}
+                {% endfor %}
+                </select>
+              </div>
+              
+              <div class= "form-group">
+                <label for="date">Joining Date</label>
+                <input class = "form-control" id="date" type="date" name="date" value="{{dval.date}}{{date}}">
+                {% comment %} <input class="form-control" type="datetime-local" id="date" name="date" value="{{date}}" min="2018-06-07T00:00" max="2025-06-14T00:00"> {% endcomment %}
+              </div>
+    
+              <div class="form-group">
+                <label for = "mobile">Mobile No. +91</label>
+                <input type = "text" class="form-control" id = "mobile" name = "mobile" value = "{{dval.mobile}}{{i.Mobile}}">
+              </div>
+    
+              <div class="form-group">
+                <label for = "address">Address</label>
+                <input type = "text" class="form-control" id = "address" name = "address" value = "{{dval.address}}{{i.DoctorAddress}}">
+              </div>
+    
+            <div>
+
+          </div>
+          </div>
+  
+          <input type = "submit" name = "editdoctor" value = "SUBMIT" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;
+          <a role="button" href="/Doctor" class="btn btn-danger">Cancel</a>
+        </form>
+        {% comment %} {% endfor %} {% endcomment %}
+      </div>
+  </div>
+</div>
+
+{% endblock main %}
+ 

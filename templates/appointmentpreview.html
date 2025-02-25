@@ -1,0 +1,156 @@
+{% extends 'base_main.html'%}
+
+{% block main %}
+{% for i in read %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">Patient Preview</h1>
+    <div class="card mt-1 mb-4">
+      <div class="card-header">
+        <h4>Appointment Details</h4>
+      </div>
+        <div class="card-body ">
+            <div class = "col-md-12">
+                <div class = "row">
+                    <div class = "col-md-9">
+            <table id = "preview-table" class="table">
+               
+              <tr>
+                <th>PatientName</th>
+                {% if gender == "Male" %}
+                <td>Mr. {{i.pf}} {{i.pm}} {{i.pl}}</td>
+                {% elif gender == "Female" %}
+                <td>Ms. {{i.pf}} {{i.pm}} {{i.pl}}</td>
+                {% else %}
+                <td>{{i.pf}} {{i.pm}} {{i.pl}}</td>
+                {% endif %}
+              </tr>
+              <tr>
+                <th>Gender</th>
+                <td>{{gender}}</td>
+              </tr>
+              <tr>
+                <th>Mobile No.</th>
+                <td>{{i.pmo}}</td>
+              </tr>
+              <tr>
+                <th>Department</th>
+                <td>{{i.DepartmentName}}</td>
+              </tr>
+              <tr>
+                <th>Appointment Date</th>
+                <td>{{i.AppointmentDate}}</td>
+              </tr>
+              <tr>
+                <th>Appointment Time</th>
+                <td>{{i.Time}}</td>
+              </tr>
+              <tr>
+                <th>Doctor</th>
+                <td>Dr. {{i.df}} {{i.dm}} {{i.dl}}</td>
+              </tr>
+              
+                <td>
+                  <a role="button" href="../Appointment" class="btn btn-secondary">Back</a>
+                </td>
+                  
+            
+            </table>
+        </div>
+        <div class = "col-md-3">
+            {%if i.PatientImage %}
+            <img class = "ms-3 mt-3 pe-0 me-0 justify-content-right" src = "/media/patient/{{i.PatientImage}}" width = "250px" height = "280px"></img>
+            {%else%}
+            <img class = "ms-3 mt-3 pe-0 me-0 justify-content-right" src = "/media/no-photo.jpg" width = "250px" height = "280px"></img>
+            {%endif%}
+        </div>
+        </div>
+        </div>
+        </div>
+    </div>
+
+
+    <div class="card mt-1 mb-4">
+
+      <div class="card-header">
+        <h4>Problem</h4>
+      </div>
+
+      <div class="card-body ">
+
+        <div class = "col-md-12">
+
+          <div class = "row">
+
+            <div class = "col-md-12">
+                
+                <p class="card-text">{{i.Problem}}</p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card mt-1 mb-4">
+
+        <div class="card-header">
+          <h4>Prescription</h4>
+        </div>
+  
+        <div class="card-body ">
+  
+          <div class = "col-md-12">
+  
+            <div class = "row">
+  
+              <div class = "col-md-12">
+                  
+                  <p class="card-text">{{i.Prescription}}</p>
+  
+              </div>
+  
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+
+      <div class="card mt-1 mb-4">
+
+        <div class="card-header">
+          <h4>Reports</h4>
+        </div>
+  
+        <div class="card-body ">
+  
+          <div class = "col-md-12">
+  
+            <div class = "row">
+  
+              <div class = "col-md-12">
+                  
+                  <p class="card-text">{{i.Report}}</p>
+  
+              </div>
+  
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+
+      <div class = "container">
+        <a target = _blank href = "/printprescription/{{i.AppointmentID}}" type = "button" class = "btn btn-secondary">Print Prescription</a>
+      </div>
+
+</div>
+{% endfor %}
+{% endblock main %}

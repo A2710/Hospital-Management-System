@@ -1,0 +1,61 @@
+{% extends 'base_main.html'%}
+
+
+{% block css %}
+
+<style>
+li:hover {
+    background-color: #ccc;
+    color: #fff;
+    cursor: pointer;
+}
+
+li {
+    display: inline-block;
+    padding: 10px;
+    width: 50%;
+    border: 2px dashed #ccc;
+    margin-right: 30px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+}
+</style>
+{% endblock css %}
+
+{% block main %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4" style = "font-size: 50px; text-align: center; margin-bottom: 50px;">Hospital Management System</h1>
+
+
+    <div class="card text-center">
+        <div class="card-header" style ="font-size: 30px;  font-weight: bold;">
+            Project By
+        </div>
+        <div class="card-body ">
+          <p class="card-text text-center">
+            <ul style = "list-style: none; font-size:18px; font-weight: bold;">
+                <li>ADITYA AGARWAL</li>
+            <ul>
+          </p>
+        </div>
+      </div>
+
+    {% comment %} <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+        <li class="breadcrumb-item active">Static Navigation</li>
+    </ol>
+    <div class="card mb-4">
+        <div class="card-body">
+            <p class="mb-0">
+                This page is an example of using static navigation. By removing the
+                <code>.sb-nav-fixed</code>
+                class from the
+                <code>body</code>
+                , the top navigation and side navigation will become static on scroll. Scroll down this page to see an example.
+            </p>
+        </div>
+    </div>
+    <div style="height: 100vh"></div>
+    <div class="card mb-4"><div class="card-body">When scrolling, the navigation stays at the top of the page. This is the end of the static navigation demo.</div></div> {% endcomment %}
+</div>
+{% endblock main %}

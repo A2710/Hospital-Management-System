@@ -1,0 +1,47 @@
+{% extends 'base_main.html' %}
+
+
+{% block main %}
+
+<div class="container-fluid px-4">
+  <h1 class="mt-4 mb-4">Edit User</h1>
+  <div class="card mt-1 mb-4">
+      <div class="card-body ">
+        {% for i in user %}
+        <form method = "post" action = "/edituser/{{i.LoginID}}" enctype = "multipart/form-data">
+          {% csrf_token %}
+        <div class = "col-md-12">
+          <div class = "row">
+
+            <div class="form-group">
+                <label for = "uname">Username</label>
+                <input type = "text" class="form-control" id = "uname" name = "uname" placeholder="Username" value = "{{i.UserName}}" required>
+            </div>
+    
+            <div class="form-group">
+                <label for = "password">Password</label>
+                <input type = "text" class="form-control" id = "password" name = "password" placeholder="" value = "{{i.UserPassword}}" required>
+            </div>
+
+            <div class="form-check form-switch">
+                {% if i.superuser == 1 %}
+                <input class="form-check-input" type="checkbox" role="switch" name = "superuser" id="flexSwitchCheckDefault" checked>
+                {% else %}
+                <input class="form-check-input" type="checkbox" role="switch" name = "superuser" id="flexSwitchCheckDefault">
+                {% endif %}
+                <label class="form-check-label" for="flexSwitchCheckDefault">SuperUser</label>
+            </div>
+
+          </div>
+        </div>
+
+          <input type = "submit" name = "edituser" value = "SUBMIT" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;
+          <a role="button" href="/userlist" class="btn btn-danger">Cancel</a>
+        </form>
+        {% endfor %}
+      </div>
+  </div>
+</div>
+
+{% endblock main %}
+ 

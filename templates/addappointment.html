@@ -1,0 +1,112 @@
+{% extends 'base_main.html' %}
+
+{% block main %}
+
+<div class="container-fluid px-4">
+  <h1 class="mt-4 mb-4">Add Appointment</h1>
+
+  {% if error_counter == 1 %}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" fdprocessedid="jzpdmd"></button>
+  </div>
+  {% endif %}
+
+  <div class="card mt-1 mb-4">
+      <div class="card-body ">
+        <form method = "post" action = "/AddAppointment">
+          {% csrf_token %}
+
+        <div class = "row">
+
+            <div class = "col-md-6">
+
+                <div class="form-group">
+                    <label for="patient" class = "form-label">Choose Patient:</label>
+                    <select id="patient" name="patient" class = "form-select">
+                      <option value="default"><b>Choose Patient</b></option>
+                
+                    {% for p in pat %}
+                    {% if p.PatientID == patient%}
+                      <option value="{{p.PatientID}}" name = "patient" selected>{{p.FirstName}} {{p.LastName}}-{{p.Mobile}}</option>
+                    {% else %}
+                      <option value="{{p.PatientID}}" name = "patient">{{p.FirstName}} {{p.LastName}}-{{p.Mobile}}</option>
+                    {% endif %}
+                    {% endfor %}
+                    </select>
+                  </div>
+        
+                <div class="form-group">
+                    <label for="department" class = "form-label">Choose Department:</label>
+                    <select id="department" name="department" class = "form-select">
+                        <option value="default"><b>Choose Department: </b></option>
+                
+                    {% for d in dep %}
+                      {% if d.DepartmentID == department%}
+                        <option value="{{d.DepartmentID}}" name = "department" selected>{{d.DepartmentName}}</option>
+                      {% else %}
+                        <option value="{{d.DepartmentID}}" name = "department">{{d.DepartmentName}}</option>
+                      {% endif %}
+                    {% endfor %}
+                    </select>
+                </div>
+        
+                  <div class="form-group">
+                    <label for="doctor" class = "form-label">Choose Doctor:</label>
+                    <select id="doctor" name="doctor" class = "form-select">
+                      <option value="default"><b>Choose Doctor: </b></option>
+                
+                    {% for d in doc %}
+                      {% if d.DoctorID == doctor %}
+                        <option value="{{d.DoctorID}}" name = "doctor" selected>{{d.FirstName}}</option>
+                      {% else %}
+                        <option value="{{d.DoctorID}}" name = "doctor">{{d.FirstName}}</option>
+                      {% endif %}
+                    {% endfor %}
+                    </select>
+                  </div>
+
+            </div>
+
+            <div class = "col-md-6">
+
+                <div class= "form-group">
+                    <label for="date">Choose Date of Appointment:</label>
+                    <input class = "form-control" id="date" type="date" value = "{{aval.date}}" min="{{date_now}}" max="{{max_date}}" name="date">
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="time" class = "form-label">Choose Time:</label>
+                    <select id="time" name="time" class = "form-select">
+                      <option value="default"><b>Choose Time: </b></option>
+                
+                    {% for t in time %}
+                      {% if t.TimeID == time_new%}
+                        <option value="{{t.TimeID}}" selected>{{t.Time}}</option>
+                      {% else %}
+                        <option value="{{t.TimeID}}">{{t.Time}}</option>
+                      {% endif %}
+                    {% endfor %}
+                    </select>
+                  </div>
+        
+                  <div class="form-group">
+                    <label for="problem">Problem</label>
+                    <textarea class="form-control" name = "problem" id="problem" rows="3" placeholder="What is your problem?">{{aval.problem}}</textarea>
+                  </div>
+
+            </div>
+
+        </div>
+
+
+            <div class="col-12">
+              <input type = "submit" name = "addappointment" value = "SUBMIT" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;
+          <a role="button" href="/Appointment" class="btn btn-danger">Cancel</a>
+            </div>
+        </form>          
+      </div>
+  </div>
+</div>
+
+{% endblock main %}

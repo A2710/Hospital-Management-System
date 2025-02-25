@@ -1,0 +1,46 @@
+{% extends 'base_main.html'%}
+
+{% block main %}
+<div class="container-fluid px-4">
+    <h1 class="mt-4 mb-4">User List</h1>
+    <div class="container mt-5  col-md-1" style="margin-left:1100px">
+        <a role="button" href="/adduser" class="btn btn-success">Add</a>
+      </div>
+    <div class="card mt-1 mb-4">
+        <div class="card-body ">
+            <table id="tbllist" class="table">
+                <thead>
+              <tr>
+                {% comment %} <th>DepartmentID</th> {% endcomment %}
+                <th>User Name</th>
+                <th>Password</th>
+                <th>SuperUser</th>
+                <th width="15%"></th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for i in user %}
+              <tr>
+                {% comment %} <td width="20%">{{i.DepartmentID}}</td> {% endcomment %}
+                <td width="25%">{{i.UserName}}</td>
+                <td width="12%">{{i.UserPassword}}</td>
+                {% if i.superuser == 1 %}
+                <td>Yes</td>
+                {% else %}
+                <td>No</td>
+                {% endif %}
+                
+                <td><a role="button" href="edituser/{{i.LoginID}}" class="btn btn-secondary">Edit</a>
+                  <form action = "deleteuser/{{i.LoginID}}" method = "post" class="d-inline">
+                    {% csrf_token %}
+                    <input type = "submit" class = "btn btn-danger" value = "delete">
+                  </form></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock main %}

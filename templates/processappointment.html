@@ -1,0 +1,102 @@
+{% extends 'base_main.html' %}
+
+{% block main %}
+
+<div class="container-fluid px-4">
+  <h1 class="mt-4 mb-4">Process Appointment</h1>
+  <div class="card mt-1 mb-4">
+      <div class="card-body ">
+        {% for i in read %}
+        <div class = "col-md-12">
+
+            <div class = "row">
+
+                <div class = "col-md-12">
+
+                    <div class = "col-md-12">
+
+
+                        <div class = "col-md-12 bg-secondary p-1" style = "background-color: #212529; text-color: white;">Appointment Details</div>
+                        <div class = "row">
+
+                            <div class = "col-md-4">
+                                <span><b>Date:</b> {{date}}</span>
+                            </div>
+                            <div class = "col-md-4">
+                                <span><b>Time:</b> {{i.Time}}</span>
+                            </div>
+                            <div class = "col-md-4">
+                                <span><b>Patient Name:</b> {{i.pf}} {{i.pm}} {{i.pl}}</span>
+                            </div>
+                            <div class = "col-md-4">
+                                <span><b>Doctor:</b> Dr. {{i.df}} {{i.dl}}</span>
+                            </div>
+                            <div class = "col-md-4">
+                                <span><b>Department:</b> {{i.DepartmentName}}</span>
+                            </div>
+                            <div class = "col-md-4">
+                                <span></span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class = "col-md-4">
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+        
+        <form method = "post" action = "/processappointment/{{i.AppointmentID}}">
+          {% csrf_token %}
+
+
+          <div class = "row">
+
+            <div class = "col-md-12">
+
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Problem</label>
+                    <textarea class="form-control" name = "problem" id="exampleFormControlTextarea1" rows="3" placeholder="What is your problem?">{{i.Problem}}</textarea>
+                </div>
+
+            </div>
+
+            <div class = "col-md-12">
+        
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea2">Prescription</label>
+                    <textarea class="form-control" name = "prescription" id="exampleFormControlTextarea2" rows="3" placeholder="">{{i.Prescription}}</textarea>
+                </div>
+
+            </div>
+
+            <div class = "col-md-12">
+        
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea3">Reports and Tests to be done</label>
+                    <textarea class="form-control" name = "report" id="exampleFormControlTextarea3" rows="3" placeholder="">{{i.Report}}</textarea>
+                </div>
+
+            </div>
+
+          </div>
+
+            <div class="col-12">
+              <input type = "submit" name = "editappointment" value = "SUBMIT" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;
+          <a role="button" href="/Appointment" class="btn btn-danger">Cancel</a>
+            </div>
+        </form> 
+        {% endfor %}         
+      </div>
+  </div>
+</div>
+
+{% endblock main %}

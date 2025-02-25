@@ -1,0 +1,26 @@
+{% extends 'base_main.html' %}
+
+
+{% block main %}
+
+<div class="container-fluid px-4">
+  <h1 class="mt-4 mb-4">Modify State</h1>
+  <div class="card mt-1 mb-4">
+      <div class="card-body ">
+        {% for i in obj %}
+        <form method = "post" action = "/editstate/{{i.StateID}}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for = "name">State</label>
+            <input type = "text" class="form-control" id = "name" name = "name" value = "{{i.StateName}}">
+          </div>
+          <input type = "submit" name = "editstate" value = "SUBMIT" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;
+          <a role="button" href="/States" class="btn btn-danger">Cancel</a>
+        </form>
+        {% endfor %}
+      </div>
+  </div>
+</div>
+
+{% endblock main %}
+ 
